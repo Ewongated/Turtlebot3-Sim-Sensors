@@ -39,3 +39,15 @@ snapshots. Reproduce or reanalyse using the commands in the Part C write-up.
 
 These are small correlated simulation samples, not evidence of perfect tuning,
 hardware calibration, a guaranteed grade, or a finished assessment submission.
+
+## Part D
+
+`part-d/eval_cmp/` holds the 80-trial heuristic-versus-LQR comparison (`summary.json`, `controller_results.md`, `tracking_boxplot.png`);
+the tables in `PART_D_CONTROL.md` Section 4 are generated from that `summary.json` by `lqr/part_d_summary.py`. `part-d/tracking_lqr_nominal_seed0.png`
+is a single-trial figure from an earlier run. The actuator-identification and compensation files in `part-d/` are open-loop bench results,
+not closed-loop trials. Large per-trial traces were not committed.
+
+The [integrated B/C/D evidence](integration-2026-11-01/README.md) adds separately
+labelled before/final eight-run batches, source snapshots, hashes and speed/error
+tradeoff plots. See [integration status](../INTEGRATION_STATUS.md) for the current
+launch command and the remaining evidence limitations.

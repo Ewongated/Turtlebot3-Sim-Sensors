@@ -9,8 +9,11 @@ must be provided and verified by the team. No hardware result is claimed.
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-camera.txt
-.venv/bin/mjpython robotis_tb3/track_a_project.py --output track-a-output
+.venv/bin/mjpython robotis_tb3/track_a_project.py --controller lqr --compensate path --lqr-rotate-enter .8 --q-scale 10 --r-scale 1 --output track-a-output
 ```
+
+Runtime dependencies now include Machine Vision Toolbox, spatialmath and SciPy.
+The integrated environment was tested with Python 3.14 on macOS arm64.
 
 Use `mjpython` on macOS for the passive viewer. Press Q to stop and close.
 Other platforms can use `.venv/bin/python` for the viewer. All runs require
@@ -70,18 +73,22 @@ flowchart LR
 
 ## Sensing and calibration (Part B)
 
-The scene has a simulated camera on a mast, not a claim about the stock
-physical Waffle Pi camera. It is 960x720 with vertical FOV 90 degrees, square
-pixels, focal length 360 pixels and principal point (479.5,359.5). Lens
+The integrated scene has a simulated camera on a mast, not a claim about the stock
+physical Waffle Pi camera. Part B now configures 640x480 with vertical FOV 60 degrees,
+square pixels, focal length about 415.69 pixels and principal point (319.5,239.5). Lens
 distortion is zero by construction. The black marker square is 0.22 m;
 its 0.30 m board includes a quiet zone. The known station is at (3,0,0.55) m.
 
 OpenCV detects DICT_4X4_50 ID 0, refines corners, and solves square PnP.
-Positive depth, finite values and reprojection error <=3 pixels are checked.
+The Part B implementation uses Machine Vision Toolbox square-marker PnP and
+checks finite pose values. It assumes the sole detected marker is the known
+station; the earlier detector's explicit ID and reprojection-error filters are
+not present in this rewrite. This limits robustness to other markers/outliers.
 Marker orientation and fixed camera extrinsics convert PnP into horizontal
 range, left-positive bearing, and base heading. This uses rendered RGB, never
-the simulator's robot pose. LiDAR casts 181 rays over 360 degrees, adds 6 mm
-Gaussian range noise by default, and has a 4 m maximum range. Encoder angles
+the simulator's robot pose. LiDAR casts 360 rays over 360 degrees, has a 3.5 m maximum range and a
+0.012 m minimum. Its class noise default is 20 mm, but the integrated CLI
+explicitly passes 6 mm by default; saved run parameters identify the actual setting. Encoder angles
 are quantised to 1024 counts/revolution and a configurable wheel scale bias.
 
 These intrinsics/extrinsics are specified by the simulated sensor. This is
@@ -107,6 +114,10 @@ and is symmetrised. Missing frames skip correction. Initial pose prior is
 start, not copied from ground truth.
 
 ## State feedback, planning and docking (Part D)
+
+The following describes the historical heuristic baseline. The integrated LQR
+controller, runtime options and current validation are described in
+[Part D](PART_D_PROJECT_PAGE.md) and [integration status](INTEGRATION_STATUS.md).
 
 LiDAR endpoints are transformed using the EKF pose into a rolling 0.10 m
 occupancy grid. Occupied cells are inflated by about 0.32 m for the robot
@@ -186,6 +197,13 @@ This is a small simulation sample, not proof of broad robustness or a claimed
 grade. Mean NEES still indicates room to improve estimator consistency. Report
 uncertainty coverage and additional calibration/tuning studies before submission.
 
+## Integrated team version
+
+The merged Part B/C/D code and current validation commands are documented in
+[Integration status](INTEGRATION_STATUS.md). Historical results below retain
+their original sensor/controller settings and must not be attributed to the
+new configuration.
+
 ## Part C tuning evidence
 
 See [Part C: EKF state estimation and tuning](PART_C_ESTIMATION.md) for the full
@@ -198,7 +216,7 @@ on 28 October 2026 (two seeds per condition), with no recorded collisions or
 timeouts. Mean per-trial position RMSE was 4.90 cm versus the archived baseline's
 6.04 cm. These are online trials with changing trajectories; the baseline was
 not rerun. [Report and plot](evidence/part-c/navigation-2026-10-28/Rerun-summary.txt).
-Default Q/R scales remain 1/1. All 18 current regression tests passed. The
+Default Q/R scales remain 1/1. At that historical stage, 18 regression tests passed; the integrated suite now has 84 passing tests. The
 72 replay comparisons are not additional navigation-success trials.
 
 ## Submission items still requiring the team

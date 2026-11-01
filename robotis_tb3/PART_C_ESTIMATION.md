@@ -248,6 +248,23 @@ See the [batch report](evidence/part-c/navigation-2026-10-28/Rerun-summary.txt),
 [baseline comparison](evidence/part-c/navigation-2026-10-28/baseline-comparison.csv)
 and [run provenance](evidence/part-c/navigation-2026-10-28/run-manifest.json).
 
+## 6.1 Integrated Part B/C/D validation (1 November 2026)
+
+The sensor rewrite changes resolution/FOV and detector implementation; Part D
+adds LQR reference tracking and actuator compensation. Previous tables retain
+their original source/configuration and are not results for this new pipeline.
+The combined version passed 84 tests. With Q x10/R x1, LQR effort R x1,
+path compensation and rotation entry 0.8 rad, it completed eight full online
+trials (two seeds per condition) with no collisions/timeouts. Mean position
+RMSE was **7.54 cm**. At entry 0.4 rad the same combined pipeline averaged
+6.20 cm but one shifted-obstacle run took 90.3 s; at 0.8 it took 36.9 s.
+This is a completion-time versus estimation-error tradeoff. It must not be
+reported as retaining the older 4.90 cm result or as optimal tuning.
+
+See [integrated results, plots, limits and reproduction commands](INTEGRATION_STATUS.md).
+The batch Q/R settings are now propagated in both runners, and the controller
+runner rejects cached results with different settings or source provenance.
+
 ## 7. Failure diagnosis and integration
 
 Without camera corrections, odometry accumulates slip and wheel-scale bias.

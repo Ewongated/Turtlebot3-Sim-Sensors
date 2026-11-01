@@ -19,6 +19,8 @@ if __name__=='__main__':
     for condition,changes in conditions.items():
         for seed in range(args.trials):
             trial=parser().parse_args([])
+            for key in vars(trial):
+                setattr(trial,key,getattr(args,key))
             trial.headless=True
             trial.seconds=args.seconds
             trial.q_scale=args.q_scale

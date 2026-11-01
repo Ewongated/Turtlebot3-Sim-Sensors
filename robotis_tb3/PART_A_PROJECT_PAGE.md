@@ -1,5 +1,11 @@
 # Part A TurtleBot3 model
 
+This page records the earlier Part A modelling assumptions. The wheel helper
+runs at 50 Hz; the integrated estimator/controller calls it five times per
+10 Hz update. The integrated camera supplies range, bearing and heading, whose
+Jacobian replaces the older full-pose C=I observation assumption below; see
+[the integrated model and frames](TRACK_A_PROJECT.md#model-and-frames-part-a).
+
 ## State and wheel inputs
 
 We use a flat floor pose s = [x, y, theta]. x and y are positions in metres in the MuJoCo world frame. theta is the heading in radians, measured anticlockwise from world +x.

@@ -3,6 +3,7 @@
 Track A simulation: LiDAR obstacle navigation, encoder/camera EKF and estimated-state feedback.
 This branch contains a tested development pipeline and project-page drafts for team review.
 
+- [Integrated B/C/D validation and launch commands](robotis_tb3/INTEGRATION_STATUS.md)
 - [Project page and run instructions](robotis_tb3/TRACK_A_PROJECT.md)
 - [Part C: estimation equations, tuning and results](robotis_tb3/PART_C_ESTIMATION.md)
 - [Viva practice notes](robotis_tb3/PART_C_VIVA_NOTES.txt)
@@ -15,7 +16,10 @@ also completed two separate fresh navigation checks. After the batch Q/R fix,
 it completed **8/8 online trials at Q x10,R x1** across all four conditions with
 no recorded collisions or timeouts. Mean per-trial position RMSE was 4.90 cm,
 versus 6.04 cm in the archived baseline. [Results and plots](robotis_tb3/evidence/part-c/navigation-2026-10-28/Rerun-summary.txt).
-**18 regression tests pass.**
+Those results used the earlier sensor/controller configuration. The merged B/C/D
+version passes **84 tests** and **8/8 navigation trials** using the explicit
+[integration configuration](robotis_tb3/INTEGRATION_STATUS.md), with mean position
+RMSE 7.54 cm. This setting improves the slow case at a cost in estimation error.
 Default tuning remains Q x1,R x1; the candidate is selected with `--q-scale 10`.
 
 Team/group details, actual human contribution statements, calibration validation,
