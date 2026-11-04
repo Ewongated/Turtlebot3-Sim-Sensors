@@ -1,0 +1,24 @@
+PROJECT 11 — PERSONAL CHECKS (NOT CLAIMED COMPLETED)
+
+Submission and viva are separate. The following are tasks to do, not evidence
+that you have already performed them.
+
+Before submitting:
+1. Open the exact public branch project-page URL in a signed-out browser.
+2. Play the MP4 from the project page. Check both runs and the plots are visible.
+3. Ask each teammate to confirm their contribution statement and final code.
+4. Confirm the approved deadline and submit the actual project-page URL on Canvas.
+
+Before the viva:
+1. Run the documented install and simulation commands yourself. Keep the terminal
+   output and note anything you had to fix. Update your contribution record only
+   after actually doing the work.
+2. Locate encoder prediction, camera correction and controller.command(ekf.pose).
+3. Explain Q versus R, dropout, angle wrapping, gating and covariance growth.
+4. Explain why range/bearing alone to one landmark leave an ambiguity; marker
+   orientation provides heading. Distinguish local controllability at rest.
+5. Explain the LQR errors, actuator compensation, saturation and threshold tradeoff.
+6. Reproduce one plot, inspect a failure/slow run and explain its limitation.
+7. Explain camera intrinsic fitting versus pose validation and the remaining range bias.
+8. Explain other team components as well as Part C. Do not claim manual authorship
+   or independent verification you did not perform. AI assistance is already declared.

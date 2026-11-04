@@ -1,0 +1,70 @@
+{
+  "duration_seconds": 300,
+  "fps": 15,
+  "frame_count": 4500,
+  "resolution": [
+    1280,
+    720
+  ],
+  "audio": "none; explanatory on-screen captions; optional narration script supplied",
+  "timeline": [
+    [
+      0,
+      20,
+      "title"
+    ],
+    [
+      20,
+      45,
+      "model"
+    ],
+    [
+      45,
+      65,
+      "sensors"
+    ],
+    [
+      65,
+      90,
+      "ekf"
+    ],
+    [
+      90,
+      128,
+      "nominal"
+    ],
+    [
+      128,
+      148,
+      "nominal_result"
+    ],
+    [
+      148,
+      194,
+      "noisy"
+    ],
+    [
+      194,
+      224,
+      "control"
+    ],
+    [
+      224,
+      254,
+      "results"
+    ],
+    [
+      254,
+      278,
+      "tradeoff"
+    ],
+    [
+      278,
+      300,
+      "limits"
+    ]
+  ],
+  "actual_run_playback": "1x; original 10 Hz renders repeated at 15 fps",
+  "capture_verified_against_published_metrics": true,
+  "video_sha256": "6ce63c3ba505fa94bfef25cc85d1925d8725800a3bd108c33adefe3d1b5b83b6"
+}

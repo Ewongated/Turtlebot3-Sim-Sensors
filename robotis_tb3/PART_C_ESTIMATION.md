@@ -355,3 +355,11 @@ or complete assessment submission is claimed.
 ![Candidate uncertainty on reserved noisy-camera replay](evidence/part-c/uncertainty-validation.png)
 
 ![Eight online candidate navigation trials and nominal state uncertainty, 28 October 2026](evidence/part-c/navigation-2026-10-28/evaluation.png)
+
+
+## Additional camera evidence (4 November 2026)
+
+[Rendered checkerboard calibration and independent marker-pose validation](CAMERA_VALIDATION.md)
+now quantify intrinsic recovery, held-out reprojection error, detector residuals
+and remaining bias. The navigation detector and tuning were unchanged. This is
+simulation validation, not a claim of measured physical-camera calibration.

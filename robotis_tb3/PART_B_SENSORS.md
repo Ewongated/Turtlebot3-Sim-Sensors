@@ -64,3 +64,11 @@ The LiDAR class defaults to sigma_rho=0.02 m, but track_a_project.py passes
 --lidar-noise (default 0.006 m) explicitly. Use saved parameters when describing
 results. Runtime dependencies are declared in requirements-camera.txt.
 See [integrated validation](INTEGRATION_STATUS.md) for the combined B/C/D results.
+
+
+## Additional camera evidence (4 November 2026)
+
+[Rendered checkerboard calibration and independent marker-pose validation](CAMERA_VALIDATION.md)
+now quantify intrinsic recovery, held-out reprojection error, detector residuals
+and remaining bias. The navigation detector and tuning were unchanged. This is
+simulation validation, not a claim of measured physical-camera calibration.

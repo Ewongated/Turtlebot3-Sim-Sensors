@@ -100,3 +100,11 @@ assisted with this merge, dependency/runner/cache repairs, tests, tuning experim
 evidence packaging and documentation. The new integration runs were tool-executed;
 they are not attributed to a teammate as personally performed. Human verification
 and individual contribution declarations must be confirmed before submission.
+
+
+## Additional camera evidence (4 November 2026)
+
+[Rendered checkerboard calibration and independent marker-pose validation](CAMERA_VALIDATION.md)
+now quantify intrinsic recovery, held-out reprojection error, detector residuals
+and remaining bias. The navigation detector and tuning were unchanged. This is
+simulation validation, not a claim of measured physical-camera calibration.

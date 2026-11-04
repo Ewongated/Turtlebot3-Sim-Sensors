@@ -25,3 +25,6 @@ source-snapshot/
 
 # Windows download metadata
 *Zone.Identifier
+
+/run-output/
+/camera-validation-output/

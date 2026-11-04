@@ -1,0 +1,93 @@
+PROJECT 11 — OPTIONAL FIVE-MINUTE NARRATION SCRIPT
+Read and amend this in your own words. Only claim work you have checked and can explain.
+The supplied brief does not require a particular narrator, faces, or narration.
+The cut is silent; you can optionally record your own voice. Timings match the MP4.
+
+0:00–0:20 — Task and pipeline
+This project demonstrates visual waypoint navigation with a TurtleBot3 in MuJoCo.
+The robot must navigate around obstacles using LiDAR, then dock at an ArUco-marked
+station. Our integrated pipeline combines sensing, an extended Kalman filter,
+and feedback control using the estimated state.
+
+0:20–0:45 — Part A: model
+The state is planar position and heading. Differential-drive kinematics relate
+left and right wheel movement to forward movement and rotation. We use measured
+encoder increments rather than assuming wheel commands equal actual motion.
+The moving-state linearisation is controllable; its local rank drops at rest.
+Marker orientation provides heading information in addition to range and bearing.
+
+0:45–1:05 — Part B: sensing
+Camera poses use the known marker and camera/base frames. We fitted intrinsics
+from eighteen rendered checkerboard views, then checked six held-out views.
+Focal lengths were within 0.42 percent of the configuration, with 0.064-pixel
+mean held-out reprojection error. This is simulation calibration, not hardware
+calibration.
+
+1:05–1:30 — Part C: estimation
+The EKF predicts pose and covariance from the encoders. Camera observations then
+correct accumulated drift when the marker is detected and the innovation passes
+the outlier gate. During dropout, prediction continues and uncertainty grows.
+Q describes motion uncertainty and R measurement uncertainty. This configuration
+uses covariance multipliers of ten for Q and one for R.
+
+1:30–2:08 — Nominal run, uninterrupted at normal speed
+Here is the complete nominal run. The overview is on the left and the actual
+controller camera image is on the right. Below are true and estimated pose,
+with estimation error and three-sigma uncertainty bands. The controller receives
+the EKF estimate, while truth is used for evaluation. Watch the uncertainty grow
+when the marker leaves view, then shrink after camera correction. The robot
+approaches the station and confirms arrival through accepted camera observations.
+
+2:08–2:28 — Nominal result
+The nominal trial completed in 37.3 seconds without a recorded collision.
+Whole-run position RMSE was 7.12 centimetres. Final true lateral error was
+2.25 centimetres and heading error was 3.30 degrees. Missing camera frames
+cannot add evidence towards the five confirmations required for arrival.
+
+2:28–3:14 — Noisy-camera trial, uninterrupted at normal speed
+The second trial adds pixel-noise standard deviation five and thirty percent
+random camera-observation dropout. The robot still predicts from encoders between
+corrections. An image appearing on screen does not mean an observation was used:
+the update indicator shows whether the EKF actually accepted it. Near docking,
+translation is disabled when the marker is lost, and the robot rotates to
+reacquire it. This complete disturbed trial succeeds in 45.3 seconds without
+a recorded collision. It tests one disturbance setting, not every possible failure.
+
+3:14–3:44 — Part D: feedback and actuators
+The LQR tracker uses estimated cross-track and heading errors against a latched
+reference path. Its gain comes from the stated path-error model and effort weights.
+A feedforward actuator compensator accounts for identified wheel friction and gain.
+Docking keeps the original mapping. A wider rotation threshold reduced repeated
+switching in the slow obstacle case. Saturation and large angles limit what the
+linear analysis alone can guarantee.
+
+3:44–4:14 — Part E: repeated trials
+We checked two seeds in each of four conditions: nominal, camera noise and
+dropout, shifted obstacle with encoder bias, and reduced floor friction.
+All eight completed without recorded collisions or timeouts. Mean per-trial
+position RMSE was 7.54 centimetres. These online navigation trials are separate
+from the earlier estimator replays and historical controller comparison.
+
+4:14–4:38 — Tradeoff and limitations
+Changing rotation entry from 0.4 to 0.8 radians reduced the slow case from
+90.3 to 36.9 seconds. However, mean estimation RMSE increased from 6.20 to
+7.54 centimetres. This is a speed–accuracy tradeoff. The earlier 4.90-centimetre
+result used a different sensor and controller configuration, so it is not the
+result of this integrated version.
+
+4:38–5:00 — Provenance and conclusion
+The repository contains the code, run commands, seeds, traces, source snapshots
+and plots. This is simulation evidence from a small development sample.
+Raw marker measurements retain range bias and occasional large heading errors.
+Historical studies without supporting summaries are excluded from headline results.
+Codex and Claude assistance is declared on the project page. Team members
+must verify their actual contributions and be able to explain the pipeline.
+
+BEFORE FINAL EXPORT
+- Confirm group number/names and contribution statements on the project page.
+- Review every claim and replace wording you cannot personally explain.
+- Voice-over is optional; the published cut has explanatory text and no audio track.
+- Reconcile remaining calibration/evidence limitations with the team's final work.
+- Keep the exported video at or below 5:00; the brief says later content need not be assessed.
+- Upload the final video to the team's chosen host and check the marker can access it.
+- Submit the final project-page and video URLs on Canvas.
