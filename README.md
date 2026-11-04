@@ -155,6 +155,12 @@ The controller batch rejects stale/unsigned caches; choose a new output director
 when source/settings change. Historical defaults stay 1/1, heuristic and compensation
 off; the explicit commands above select the assessed integrated configuration.
 
+A [clean-start reproduction](robotis_tb3/evidence/fresh-start-2026-11-04/)
+on 4 November installed these requirements in a new isolated environment, passed
+`pip check`, and completed the nominal headless trial in 37.3 s with unchanged
+metrics. This checks the fresh installation/run; the GUI viewer was not exercised
+in that particular check.
+
 ## Sources, generative AI and viva readiness
 
 ROBOTIS robot assets and the subject tutorial adaptations are acknowledged in the
