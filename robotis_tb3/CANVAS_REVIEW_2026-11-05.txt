@@ -1,0 +1,103 @@
+PROJECT 11 — CANVAS AND CODE REVIEW, 5 NOVEMBER 2026
+
+Scope: Canvas activity instructions, project page, subject assessment outline,
+AI guidance and announcements were read. The linked tutorial notebooks were
+not compared cell by cell. Matching a topic does not establish authorship or
+permission for AI use. This note is Codex-assisted; student review is pending.
+
+COURSE FOUNDATIONS AND WHERE TO FIND THEM
+
+Week 5: state-space models, controllability and observability (module listing).
+  Code: turtlebot_model.py: linearize_wheel_model, controllability_matrix,
+  observability_matrix. The local linear model loses lateral control at rest;
+  this does not mean the nonlinear robot cannot manoeuvre to a lateral target.
+  https://canvas.uts.edu.au/courses/39975/modules/items/2577393
+
+Week 6: LQR, weight tradeoffs and the mobile unicycle tracking variant.
+  Code: lqr/track_a_control_design.py: error_model, discretise, lqr_discrete.
+  Explain e_y, e_theta, u=-K e, the chosen speed, input limits and why the
+  small-angle straight-segment model does not prove global docking stability.
+  https://canvas.uts.edu.au/courses/39975/modules/items/2577399
+
+Week 7: EKF encoder prediction, known-landmark range/bearing correction,
+Q/R tuning, estimated-versus-true pose/covariance plots, and bias failures.
+  Code: track_a_estimation.py: PoseEKF.predict and PoseEKF.correct;
+  turtlebot_model.py: step_pose_from_encoder and its Jacobians.
+  Explain x=[x,y,theta], prediction, innovation, Kalman gain and covariance.
+  EKF Q is process covariance; EKF R is camera covariance. They are separate
+  from the LQR state/input cost weights, also named Q and R.
+  https://canvas.uts.edu.au/courses/39975/modules/items/2577404
+
+Week 8: estimator-based feedback, u=-K x_hat, with noisy/partial measurements.
+  Code: track_a_project.py sends ekf.pose to tracker.command. Simulator truth
+  is read for scoring/logging after the command, not as tracker input.
+  https://canvas.uts.edu.au/courses/39975/modules/items/2577409
+
+Week 10-11: explicitly requires LiDAR obstacle navigation, visual docking,
+encoder/camera EKF and state-feedback or LQR using estimated state.
+  https://canvas.uts.edu.au/courses/39975/modules/items/2577419
+
+IMPLEMENTATION ADDITIONS TO EXPLAIN
+
+These are additions relative to the activity lists inspected, not findings
+that the methods are forbidden or absent from every course resource.
+
+1. Camera marker orientation supplies absolute heading, giving a three-value
+   observation. A single marker's range/bearing alone has a pose ambiguity.
+2. The camera has a base offset; numerical Jacobians account for that offset.
+3. Wrapped angular residuals avoid a false jump across -pi/pi. Joseph-form
+   covariance updates and symmetrisation help numerical behaviour.
+4. NIS gating rejects unusually large innovations. It does not guarantee
+   correctness or fix calibration bias. Constant diagonal R is a limitation.
+5. Occupancy mapping/A*, route latching, docking confirmation/hysteresis and
+   LiDAR stops connect estimation and control into a complete navigation task.
+6. Identified actuator feedforward is enabled for path following only in the
+   published final configuration. Explain friction/gain, wheel saturation and
+   the speed-versus-error tradeoff; this is not a live truth feedback signal.
+7. Replay sweeps, NIS/NEES diagnostics, archives and video tools support evidence.
+   They are not extra independent physical/navigation trials or proof that the
+   students personally ran the experiments.
+
+CORRECTIONS FOUND
+
+Part C previously claimed a 3-pixel reprojection gate and positive-depth check.
+The current track_a_sensors.py does not implement those checks or explicitly
+select by marker ID: it uses the first detected marker and checks finite pose.
+The write-up was corrected to state that limitation. Its sensor input attribution
+was also updated to reflect the integrated Abdillah detector. No algorithm was
+changed during this review; existing results were not regenerated.
+
+WHAT THE GROUP SHOULD DO BEFORE SUBMITTING
+
+1. Each person runs the documented simulation and checks their contribution
+   statement. Record only the work actually done. Current final run settings:
+   --controller lqr --compensate path --lqr-rotate-enter .8 --q-scale 10 --r-scale 1
+2. Walk through predict, correct, tracker.command and the final success score
+   together. Be able to explain each added mechanism above in plain language.
+3. Check both the Part C historical plots and final integrated results are
+   labelled correctly. Different detectors/controllers/settings are different
+   experiments, so their averages must not be presented as one comparable batch.
+4. Finish and check the student's own narration against the actual footage.
+   Keep an accurate AI declaration; changing presentation does not remove AI use.
+5. Confirm with the coordinator if the permitted extent of generated code/video
+   is unclear. The general guidance requires coordinator advice and disclosure;
+   it is not blanket permission for a fully generated submission.
+6. Submit the public project-page URL with code and video directly accessible.
+   Canvas currently displays 6 November, 23:59. This review did not submit it.
+
+VIVA IS SEPARATE
+
+The 3 November announcement requires a public page, a clean-start runnable
+simulation, and understanding all components, not only one's assigned part.
+Topics: models/observability/controllability; sensors/calibration/noise/EKF;
+controller/visual servoing; diagnosis/robustness.
+https://canvas.uts.edu.au/courses/39975/discussion_topics/869572
+
+AI guidance read through this course:
+https://canvas.uts.edu.au/courses/39975/pages/important-guidance-2?module_item_id=2770097
+Subject assessment outline:
+https://canvas.uts.edu.au/courses/39975/external_tools/6740
+
+This review does not certify a grade, assessment compliance, human authorship,
+or team approval. The activity instructions support the core method choices;
+the group still needs to understand, verify and accurately describe its work.

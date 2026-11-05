@@ -22,8 +22,9 @@ World x and y are in metres, with z upward. Base x points forward and base y
 left. Heading is anticlockwise from world +x and wrapped to [-pi,pi).
 
 - **From Part A:** robot dimensions and the differential-drive motion model.
-- **From Part B (Gardner):** time-aligned encoder increments and a validated
-  marker observation [range, bearing, heading], with the camera/marker transforms
+- **Sensor inputs:** encoder increments from the simulation loop and a marker
+  observation [range, bearing, heading] from the current Part B detector
+  integrated from Abdillah's sensor rewrite, with the camera/marker transforms
   and calibration assumptions specified. Bearing is positive to the left.
 - **To Part D (Wong):** posterior pose, covariance and whether the camera update
   was accepted. The current loop is synchronous at 10 Hz. A real interface should
@@ -99,9 +100,12 @@ $$\hat{s}=s^-+K\nu,$$
 $$P=(I-KH)P^-(I-KH)^T+KRK^T.$$
 
 Linear systems are solved instead of explicitly inverting S. The Joseph
-covariance update is symmetrised to reduce numerical asymmetry. Camera PnP
-must have positive depth, finite values and reprojection error no greater than
-3 pixels. An EKF update is rejected if its NIS exceeds 11.345, the 99% threshold
+covariance update is symmetrised to reduce numerical asymmetry. The current
+camera detector rejects missing detections and non-finite pose values. It uses
+the first detected marker, assuming a single known station marker; it does not
+explicitly check marker identity, positive depth or a reprojection-error
+threshold. These are limitations, not implemented rejection checks. An EKF
+update is rejected if its NIS exceeds 11.345, the 99% threshold
 for a nominal three-dimensional Gaussian innovation. This is a diagnostic gate,
 not a guarantee that the actual nonlinear/correlated measurements follow that
 ideal distribution.
@@ -345,8 +349,21 @@ passing simple chi-square checks is insufficient to establish correct tuning.
 - OpenCV marker detection: https://docs.opencv.org/5.0/tutorials/objdetect/aruco_detection/aruco_detection.html
 
 This study uses a nine-point grid, not the Bayesian optimisation method in the
-cited papers. No hardware, measured camera calibration, optimality, grade band
-or complete assessment submission is claimed.
+cited papers. No hardware, physical-camera calibration, optimality, grade band
+or complete assessment submission is claimed. The later simulated calibration
+and validation are reported separately below.
+
+### Canvas topic alignment (checked 5 November 2026)
+
+The [Week 7 tutorial](https://canvas.uts.edu.au/courses/39975/modules/items/2577404)
+explicitly covers encoder-based EKF prediction, known-landmark range/bearing
+updates, Q/R tuning, pose/covariance plots and bias diagnosis. These are the
+course foundations for this estimator. Marker-derived heading, camera-offset
+modelling, numerical measurement Jacobians, NIS gating, Joseph covariance
+updates and replay/provenance tooling are implementation additions relative
+to that tutorial's published activity list. This comparison uses the Canvas
+activity instructions, not a cell-by-cell notebook comparison or an authorship
+claim. See `CANVAS_REVIEW_2026-11-05.txt` for the group review checklist.
 
 ## Figures
 
