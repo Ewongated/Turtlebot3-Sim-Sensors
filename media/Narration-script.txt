@@ -1,93 +1,99 @@
-PROJECT 11 — OPTIONAL FIVE-MINUTE NARRATION SCRIPT
-Read and amend this in your own words. Only claim work you have checked and can explain.
-The supplied brief does not require a particular narrator, faces, or narration.
-The cut is silent; you can optionally record your own voice. Timings match the MP4.
+PROJECT 11 — SIMPLE VOICE-OVER SCRIPT
+Video length: 4 minutes 45 seconds. Speak calmly; pauses are fine.
+Read it once, change wording to suit you, and only say what you understand.
+This describes the project without claiming that you manually wrote or personally
+ran the AI-assisted code. AI assistance remains declared on the project page.
 
-0:00–0:20 — Task and pipeline
-This project demonstrates visual waypoint navigation with a TurtleBot3 in MuJoCo.
-The robot must navigate around obstacles using LiDAR, then dock at an ArUco-marked
-station. Our integrated pipeline combines sensing, an extended Kalman filter,
-and feedback control using the estimated state.
+0:00–0:10 — Introduction
+This is Project 11. Our simulated TurtleBot moves around obstacles, then docks
+at a marked charging station.
 
-0:20–0:45 — Part A: model
-The state is planar position and heading. Differential-drive kinematics relate
-left and right wheel movement to forward movement and rotation. We use measured
-encoder increments rather than assuming wheel commands equal actual motion.
-The moving-state linearisation is controllable; its local rank drops at rest.
-Marker orientation provides heading information in addition to range and bearing.
+0:10–0:48 — Normal run
+This is the full normal run at normal speed. The large view shows the robot in
+the room, and the smaller view shows what its camera sees.
 
-0:45–1:05 — Part B: sensing
-Camera poses use the known marker and camera/base frames. We fitted intrinsics
-from eighteen rendered checkerboard views, then checked six held-out views.
-Focal lengths were within 0.42 percent of the configuration, with 0.064-pixel
-mean held-out reprojection error. This is simulation calibration, not hardware
-calibration.
+The robot uses LiDAR to find obstacles and plan a path around them. It doesn't
+get its true position from the simulator for control. Instead, the controller
+uses the position estimated by the filter.
 
-1:05–1:30 — Part C: estimation
-The EKF predicts pose and covariance from the encoders. Camera observations then
-correct accumulated drift when the marker is detected and the innovation passes
-the outlier gate. During dropout, prediction continues and uncertainty grows.
-Q describes motion uncertainty and R measurement uncertainty. This configuration
-uses covariance multipliers of ten for Q and one for R.
+It finishes this run in 37.3 seconds without a recorded collision.
 
-1:30–2:08 — Nominal run, uninterrupted at normal speed
-Here is the complete nominal run. The overview is on the left and the actual
-controller camera image is on the right. Below are true and estimated pose,
-with estimation error and three-sigma uncertainty bands. The controller receives
-the EKF estimate, while truth is used for evaluation. Watch the uncertainty grow
-when the marker leaves view, then shrink after camera correction. The robot
-approaches the station and confirms arrival through accepted camera observations.
+0:48–1:01 — Docking replay
+Here is docking again. Without the marker, the robot stops advancing and turns
+to find it. Arrival needs five accepted camera readings.
 
-2:08–2:28 — Nominal result
-The nominal trial completed in 37.3 seconds without a recorded collision.
-Whole-run position RMSE was 7.12 centimetres. Final true lateral error was
-2.25 centimetres and heading error was 3.30 degrees. Missing camera frames
-cannot add evidence towards the five confirmations required for arrival.
+1:01–1:20 — How the estimate works
+This replay is at half speed. The state is the robot's x position, y position and
+heading. Wheel encoders estimate how it has moved. The camera corrects drift when
+it sees the marker. Q represents motion uncertainty, while R represents uncertainty
+in the camera measurements.
 
-2:28–3:14 — Noisy-camera trial, uninterrupted at normal speed
-The second trial adds pixel-noise standard deviation five and thirty percent
-random camera-observation dropout. The robot still predicts from encoders between
-corrections. An image appearing on screen does not mean an observation was used:
-the update indicator shows whether the EKF actually accepted it. Near docking,
-translation is disabled when the marker is lost, and the robot rotates to
-reacquire it. This complete disturbed trial succeeds in 45.3 seconds without
-a recorded collision. It tests one disturbance setting, not every possible failure.
+1:20–2:06 — Noisy camera run
+This full run adds image noise and randomly drops thirty percent of camera
+observations. It is playing at normal speed.
 
-3:14–3:44 — Part D: feedback and actuators
-The LQR tracker uses estimated cross-track and heading errors against a latched
-reference path. Its gain comes from the stated path-error model and effort weights.
-A feedforward actuator compensator accounts for identified wheel friction and gain.
-Docking keeps the original mapping. A wider rotation threshold reduced repeated
-switching in the slow obstacle case. Saturation and large angles limit what the
-linear analysis alone can guarantee.
+The filter keeps predicting movement from the encoders when a camera observation
+is missing. When a suitable reading returns, it can correct the estimate.
 
-3:44–4:14 — Part E: repeated trials
-We checked two seeds in each of four conditions: nominal, camera noise and
-dropout, shifted obstacle with encoder bias, and reduced floor friction.
-All eight completed without recorded collisions or timeouts. Mean per-trial
-position RMSE was 7.54 centimetres. These online navigation trials are separate
-from the earlier estimator replays and historical controller comparison.
+Below the camera are the estimation errors and uncertainty bands. The numbers
+on the left compare the true and estimated position. True position is used here
+to evaluate the result, not to steer the robot.
 
-4:14–4:38 — Tradeoff and limitations
-Changing rotation entry from 0.4 to 0.8 radians reduced the slow case from
-90.3 to 36.9 seconds. However, mean estimation RMSE increased from 6.20 to
-7.54 centimetres. This is a speed–accuracy tradeoff. The earlier 4.90-centimetre
-result used a different sensor and controller configuration, so it is not the
-result of this integrated version.
+This trial finishes in 45.3 seconds, with no recorded collision.
 
-4:38–5:00 — Provenance and conclusion
-The repository contains the code, run commands, seeds, traces, source snapshots
-and plots. This is simulation evidence from a small development sample.
-Raw marker measurements retain range bias and occasional large heading errors.
-Historical studies without supporting summaries are excluded from headline results.
-Codex and Claude assistance is declared on the project page. Team members
-must verify their actual contributions and be able to explain the pipeline.
+2:06–2:45 — Prediction and correction replay
+This section is replayed at half speed so the changes are easier to follow.
+Watch the camera-update label. A camera picture can still be visible even when
+its observation has been dropped by the test.
 
-BEFORE FINAL EXPORT
-- Confirm group number/names and contribution statements on the project page.
-- Review every claim and replace wording you cannot personally explain.
-- Voice-over is optional; the published cut has explanatory text and no audio track.
-- Reconcile remaining calibration/evidence limitations with the team's final work.
-- Keep the exported video at or below 5:00; the brief says later content need not be assessed.
-- Upload the final video to the team's chosen host and check the marker can access it.
-- Submit the final project-page and video URLs on Canvas.
+During prediction-only periods, uncertainty grows. When the camera correction
+is accepted, the estimate and its uncertainty change.
+
+The camera also needs calibration. A separate checkerboard study checked the
+simulated camera settings, but the marker measurements still have some range
+bias and occasional large heading errors. The filter is not perfect.
+
+2:45–3:22 — Shifted obstacle and wheel bias
+Here the obstacle has moved, and a small difference is added to the wheel
+measurements. The planner has to use the new LiDAR readings rather than assuming
+the old obstacle position.
+
+The LQR controller follows the planned path using estimated sideways and heading
+errors. Wheel compensation helps account for the simulated actuator friction.
+
+The robot completes this run in 36.9 seconds. The final docking check uses the
+same tolerances as the other trials.
+
+3:22–3:58 — Slippery floor
+This run reduces the floor friction. That changes how commanded wheel movement
+turns into actual robot movement.
+
+This is why encoder-only movement can drift and why camera corrections are useful.
+The controller still uses the estimated state throughout the run.
+
+It completes in 35.4 seconds without a recorded collision. This is one tested
+friction setting, so it doesn't prove the robot will handle every surface.
+
+3:58–4:20 — Results
+The full check used two seeds in each of four conditions. All eight runs finished,
+with no recorded collisions or timeouts.
+
+The average position RMSE was 7.54 centimetres. That measures the error over the
+whole run, rather than just the final docking position. Two runs per condition
+are still a small sample.
+
+4:20–4:36 — Tradeoff
+A wider turning threshold fixed a slow case, reducing its time from 90.3 to
+36.9 seconds. But average estimation error increased from 6.20 to 7.54 centimetres.
+It is a speed-versus-accuracy tradeoff, rather than an improvement in everything.
+
+4:36–4:45 — Finish
+The GitHub page contains the code, video and results, with contribution statements
+and the AI assistance declared.
+
+RECORDING NOTES
+- Don't read the section headings or timestamps aloud.
+- Leave a short pause when you finish a section early.
+- You can replace “RMSE” with “root mean square position error” if that feels clearer.
+- Record in a quiet room and send the audio file back for synchronising.
+- Keep the AI declaration and actual contribution statements accurate.

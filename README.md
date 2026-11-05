@@ -9,7 +9,7 @@ and no hardware implementation is claimed here.
 
 ## Video and code
 
-- **[Watch/download the five-minute demo](media/project-11-demo.mp4)** — video included in this repository, with full nominal/noisy runs and live estimates/uncertainty alongside truth. It is a silent explanatory cut; no voice narration is claimed.
+- **[Watch/download the 4:45 demo](media/project-11-demo.mp4)** — video included in this repository, with four complete runs, labelled replays, and live estimates/uncertainty alongside truth. The footage-led cut is silent, ready for your own voice-over using the simple timed script; no voice narration is claimed.
 - [Direct MP4 file](https://raw.githubusercontent.com/contactbillygardner-cyber/turtlebot3-visual-navigation/codex/track-a-estimation-review/media/project-11-demo.mp4)
 - [Source code](robotis_tb3/) · [Demo script and provenance](media/README.md)
 
