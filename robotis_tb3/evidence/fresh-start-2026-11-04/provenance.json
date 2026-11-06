@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-04",
+  "source_commit": "676335c",
+  "setup": "Created a new virtual environment without system site packages and installed requirements-analysis.txt. pip check returned no broken requirements.",
+  "platform": "macOS arm64, Python 3.14",
+  "command": ".venv/bin/python robotis_tb3/track_a_project.py --headless --controller lqr --compensate path --lqr-rotate-enter .8 --q-scale 10 --r-scale 1 --output run-output/headless",
+  "trace_sha256": "ef3cb86c84ce35ead971dbd924ebeb425b625dd74d546b5cd9eef047371b01c9",
+  "scope": "Reproduction of nominal seed 0 from a fresh environment, not an additional independent navigation trial. GUI viewer not exercised in this check."
+}

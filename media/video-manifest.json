@@ -1,0 +1,122 @@
+{
+  "duration_seconds": 285,
+  "fps": 15,
+  "frame_count": 4275,
+  "resolution": [
+    1280,
+    720
+  ],
+  "audio": "none; prepared for the student to record their own narration",
+  "timeline": [
+    {
+      "start": 0,
+      "end": 10,
+      "section": "intro",
+      "source": null,
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "Project 11"
+    },
+    {
+      "start": 10,
+      "end": 48,
+      "section": "nominal",
+      "source": "nominal",
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "Normal run | complete trial"
+    },
+    {
+      "start": 48,
+      "end": 61,
+      "section": "dock",
+      "source": "nominal",
+      "source_start_seconds": 24.3,
+      "playback_speed": 1,
+      "title": "Replay | finding the marker and docking"
+    },
+    {
+      "start": 61,
+      "end": 80,
+      "section": "model",
+      "source": "nominal",
+      "source_start_seconds": 8,
+      "playback_speed": 0.5,
+      "title": "Replay 0.5x | encoders and camera estimate the pose"
+    },
+    {
+      "start": 80,
+      "end": 126,
+      "section": "noisy",
+      "source": "noisy",
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "Camera noise + 30% dropout | complete trial"
+    },
+    {
+      "start": 126,
+      "end": 165,
+      "section": "dropout",
+      "source": "noisy",
+      "source_start_seconds": 18,
+      "playback_speed": 0.5,
+      "title": "Replay 0.5x | watch prediction-only and camera correction"
+    },
+    {
+      "start": 165,
+      "end": 202,
+      "section": "shifted",
+      "source": "shifted_obstacle",
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "Shifted obstacle + wheel bias | complete trial"
+    },
+    {
+      "start": 202,
+      "end": 238,
+      "section": "slippery",
+      "source": "slippery_floor",
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "Slippery floor | complete trial"
+    },
+    {
+      "start": 238,
+      "end": 260,
+      "section": "results",
+      "source": null,
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "Results"
+    },
+    {
+      "start": 260,
+      "end": 276,
+      "section": "tradeoff",
+      "source": null,
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "The tradeoff"
+    },
+    {
+      "start": 276,
+      "end": 285,
+      "section": "end",
+      "source": null,
+      "source_start_seconds": 0,
+      "playback_speed": 1,
+      "title": "Project 11"
+    }
+  ],
+  "motion": "Actual MuJoCo recordings; no generated/interpolated robot movement.",
+  "replays": "Clearly labelled; 0.5x clips repeat original frames rather than interpolate.",
+  "simulation_footage_edit_seconds": 228,
+  "text_and_results_seconds": 57,
+  "full_trials": [
+    "nominal seed 0",
+    "camera noise/dropout seed 0",
+    "shifted obstacle seed 0",
+    "slippery floor seed 0"
+  ],
+  "video_sha256": "4f1bf83268319d6d6770b6da0a443757ff6dfd25a4a844efd9db67bc561f1e31"
+}

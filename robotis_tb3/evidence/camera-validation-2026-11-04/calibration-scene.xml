@@ -1,0 +1,6 @@
+<mujoco><visual><global offwidth="640" offheight="480"/></visual>
+      <asset><texture name="board" type="2d" file="checkerboard.png"/>
+      <material name="board" texture="board" texrepeat="1 1" texuniform="false" emission="1"/></asset>
+      <worldbody><camera name="test" pos="0 0 0" xyaxes="1 0 0 0 -1 0" fovy="60.0"/>
+      <body mocap="true"><geom type="plane" size=".18 .14 .001" material="board"/></body>
+      </worldbody></mujoco>

@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-01",
+  "merged_part_d_commit": "05362e1",
+  "prior_part_c_commit": "b530adb",
+  "runtime_source": "Exact tested files in each trial source-snapshot.zip and SHA-256 manifest; tests ran on merged working source before the integration commit.",
+  "tests_passed": 84,
+  "command": ".venv/bin/python robotis_tb3/lqr/evaluate_controllers.py --controllers lqr@0.8+comp --trials 2 --seconds 110 --q-scale 10 --r-scale 1 --output eval_integrated",
+  "before_scope": "Unmodified Ethan_PartD review snapshot; Q x10/R x1 assigned directly to bypass the old batch bug.",
+  "after_scope": "Merged source with fixed option propagation/cache checks; runs made through the actual controller batch CLI.",
+  "source_modification_during_runs": false
+}

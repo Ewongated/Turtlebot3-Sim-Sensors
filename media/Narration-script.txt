@@ -1,0 +1,99 @@
+PROJECT 11 — SIMPLE VOICE-OVER SCRIPT
+Video length: 4 minutes 45 seconds. Speak calmly; pauses are fine.
+Read it once, change wording to suit you, and only say what you understand.
+This describes the project without claiming that you manually wrote or personally
+ran the AI-assisted code. AI assistance remains declared on the project page.
+
+0:00–0:10 — Introduction
+This is Project 11. Our simulated TurtleBot moves around obstacles, then docks
+at a marked charging station.
+
+0:10–0:48 — Normal run
+This is the full normal run at normal speed. The large view shows the robot in
+the room, and the smaller view shows what its camera sees.
+
+The robot uses LiDAR to find obstacles and plan a path around them. It doesn't
+get its true position from the simulator for control. Instead, the controller
+uses the position estimated by the filter.
+
+It finishes this run in 37.3 seconds without a recorded collision.
+
+0:48–1:01 — Docking replay
+Here is docking again. Without the marker, the robot stops advancing and turns
+to find it. Arrival needs five accepted camera readings.
+
+1:01–1:20 — How the estimate works
+This replay is at half speed. The state is the robot's x position, y position and
+heading. Wheel encoders estimate how it has moved. The camera corrects drift when
+it sees the marker. Q represents motion uncertainty, while R represents uncertainty
+in the camera measurements.
+
+1:20–2:06 — Noisy camera run
+This full run adds image noise and randomly drops thirty percent of camera
+observations. It is playing at normal speed.
+
+The filter keeps predicting movement from the encoders when a camera observation
+is missing. When a suitable reading returns, it can correct the estimate.
+
+Below the camera are the estimation errors and uncertainty bands. The numbers
+on the left compare the true and estimated position. True position is used here
+to evaluate the result, not to steer the robot.
+
+This trial finishes in 45.3 seconds, with no recorded collision.
+
+2:06–2:45 — Prediction and correction replay
+This section is replayed at half speed so the changes are easier to follow.
+Watch the camera-update label. A camera picture can still be visible even when
+its observation has been dropped by the test.
+
+During prediction-only periods, uncertainty grows. When the camera correction
+is accepted, the estimate and its uncertainty change.
+
+The camera also needs calibration. A separate checkerboard study checked the
+simulated camera settings, but the marker measurements still have some range
+bias and occasional large heading errors. The filter is not perfect.
+
+2:45–3:22 — Shifted obstacle and wheel bias
+Here the obstacle has moved, and a small difference is added to the wheel
+measurements. The planner has to use the new LiDAR readings rather than assuming
+the old obstacle position.
+
+The LQR controller follows the planned path using estimated sideways and heading
+errors. Wheel compensation helps account for the simulated actuator friction.
+
+The robot completes this run in 36.9 seconds. The final docking check uses the
+same tolerances as the other trials.
+
+3:22–3:58 — Slippery floor
+This run reduces the floor friction. That changes how commanded wheel movement
+turns into actual robot movement.
+
+This is why encoder-only movement can drift and why camera corrections are useful.
+The controller still uses the estimated state throughout the run.
+
+It completes in 35.4 seconds without a recorded collision. This is one tested
+friction setting, so it doesn't prove the robot will handle every surface.
+
+3:58–4:20 — Results
+The full check used two seeds in each of four conditions. All eight runs finished,
+with no recorded collisions or timeouts.
+
+The average position RMSE was 7.54 centimetres. That measures the error over the
+whole run, rather than just the final docking position. Two runs per condition
+are still a small sample.
+
+4:20–4:36 — Tradeoff
+A wider turning threshold fixed a slow case, reducing its time from 90.3 to
+36.9 seconds. But average estimation error increased from 6.20 to 7.54 centimetres.
+It is a speed-versus-accuracy tradeoff, rather than an improvement in everything.
+
+4:36–4:45 — Finish
+The GitHub page contains the code, video and results, with contribution statements
+and the AI assistance declared.
+
+RECORDING NOTES
+- Don't read the section headings or timestamps aloud.
+- Leave a short pause when you finish a section early.
+- You can replace “RMSE” with “root mean square position error” if that feels clearer.
+- Record in a quiet room and send the audio file back for synchronising.
+- Keep the AI declaration and actual contribution statements accurate.

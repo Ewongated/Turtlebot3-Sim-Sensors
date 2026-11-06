@@ -1,0 +1,68 @@
+[
+  {
+    "pixel_noise_sd": 0,
+    "range_group": "range <=2m",
+    "samples": 54,
+    "rmse_range_m_bearing_deg_yaw_deg": [
+      0.012935536033782176,
+      0.019105701666982836,
+      0.9631875555774869
+    ],
+    "max_abs_yaw_error_deg": 2.5859543215111263
+  },
+  {
+    "pixel_noise_sd": 0,
+    "range_group": "range >2m",
+    "samples": 36,
+    "rmse_range_m_bearing_deg_yaw_deg": [
+      0.05406321044235339,
+      0.036954288409074255,
+      10.053483632250748
+    ],
+    "max_abs_yaw_error_deg": 28.406457354316846
+  },
+  {
+    "pixel_noise_sd": 5,
+    "range_group": "range <=2m",
+    "samples": 54,
+    "rmse_range_m_bearing_deg_yaw_deg": [
+      0.012980596010282125,
+      0.018748789970575972,
+      1.0336175296108225
+    ],
+    "max_abs_yaw_error_deg": 2.764972705464786
+  },
+  {
+    "pixel_noise_sd": 5,
+    "range_group": "range >2m",
+    "samples": 36,
+    "rmse_range_m_bearing_deg_yaw_deg": [
+      0.054693580190475224,
+      0.028788256484916053,
+      7.5499837655981255
+    ],
+    "max_abs_yaw_error_deg": 28.406457354316846
+  },
+  {
+    "pixel_noise_sd": 15,
+    "range_group": "range <=2m",
+    "samples": 54,
+    "rmse_range_m_bearing_deg_yaw_deg": [
+      0.012872262015884995,
+      0.023942346837412552,
+      1.1445200374771207
+    ],
+    "max_abs_yaw_error_deg": 3.4274007112374085
+  },
+  {
+    "pixel_noise_sd": 15,
+    "range_group": "range >2m",
+    "samples": 36,
+    "rmse_range_m_bearing_deg_yaw_deg": [
+      0.05334440535361304,
+      0.02917708753334072,
+      7.582289299208419
+    ],
+    "max_abs_yaw_error_deg": 28.406457354316462
+  }
+]
