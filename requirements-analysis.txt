@@ -1,2 +1,3 @@
 -r requirements-camera.txt
 matplotlib>=3.10,<4
+control>=0.10,<1

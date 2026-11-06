@@ -28,17 +28,19 @@ def build_room(obstacle_shift=0.0, friction=1.0):
     ET.SubElement(assets, 'material', name='marker_material', texture='marker_texture', texrepeat='1 1',
                   texuniform='false', emission='1', specular='0')
     ET.SubElement(world, 'geom', name='marker', type='plane', pos='3 0 .55', xyaxes='0 -1 0 0 0 1',
-                  size='.15 .15 .001', material='marker_material', contype='0', conaffinity='0', group='4')
-    boxes = [ ('obstacle_main', (1.25, obstacle_shift, .15), (.22, .25, .15)),
-              ('obstacle_side', (2.1, -.95, .15), (.2, .2, .15)),
-              ('wall_back', (-.7, 0, .35), (.05, 1.6, .35)),
-              ('wall_station', (3.2, 0, .35), (.05, 1.6, .35)),
-              ('wall_left', (1.25, 1.6, .35), (2, .05, .35)),
-              ('wall_right', (1.25, -1.6, .35), (2, .05, .35)),
-               ]
-    for name, pos, size in boxes:
-        ET.SubElement(world, 'geom', name=name, type='box', pos=' '.join(map(str,pos)),
-                      size=' '.join(map(str,size)), rgba='.65 .35 .15 1', group='5')
+                  size='.15 .15 .001', material='marker_material', contype='0', conaffinity='0')
+    ET.SubElement(world, 'geom', name='obstacle_main', type='box',
+                  pos=f'1.25 {obstacle_shift} .15', size='.22 .25 .15', rgba='.65 .35 .15 1')
+    ET.SubElement(world, 'geom', name='obstacle_side', type='box',
+                  pos='2.1 -.95 .15', size='.2 .2 .15', rgba='.65 .35 .15 1')
+    ET.SubElement(world, 'geom', name='wall_back', type='box',
+                  pos='-.7 0 .35', size='.05 1.6 .35', rgba='.65 .35 .15 1')
+    ET.SubElement(world, 'geom', name='wall_station', type='box',
+                  pos='3.2 0 .35', size='.05 1.6 .35', rgba='.65 .35 .15 1')
+    ET.SubElement(world, 'geom', name='wall_left', type='box',
+                  pos='1.25 1.6 .35', size='2 .05 .35', rgba='.65 .35 .15 1')
+    ET.SubElement(world, 'geom', name='wall_right', type='box',
+                  pos='1.25 -1.6 .35', size='2 .05 .35', rgba='.65 .35 .15 1')
     return mujoco.MjModel.from_xml_string(ET.tostring(root, encoding='unicode'))
 
 
@@ -48,7 +50,7 @@ class Lidar:
     MIN_RANGE = 0.012
     def __init__(self, model):
         self.site = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, 'lidar') #
-        self.groups = np.array([0, 0, 0, 0, 0, 1], dtype=np.uint8)
+        self.groups = np.array([1, 0, 0, 0, 0, 0], dtype=np.uint8)
 
     def read(self, model, data, rng, sigma_rho=0.02):
         T = data.site_xpos[self.site]                  # LiDAR translation vector in world coordinates

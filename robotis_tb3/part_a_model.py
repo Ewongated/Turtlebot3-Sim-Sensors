@@ -1,3 +1,7 @@
+import numpy as np
+from roboticstoolbox import DiffSteer, Unicycle
+import control as ct
+
 def diff_drive_step(x, dphi_L, dphi_R, r, W):
     """Propagate pose x = [x, y, theta] by one odometry increment."""
     d    = 0.5 * r * (dphi_L + dphi_R)          # body displacement
@@ -41,7 +45,7 @@ for v0 in [1.0, 0.3, 0.0]:
           "  <- observable" if np.linalg.matrix_rank(Ou) == 3 else "  <- heading INVISIBLE")
 
 Au, Bu, Cu = unicycle_lin(1.0)
-stamp("O at v0 = 1", ct.obsv(Au, Cu))
+print("O at v0 = 1", ct.obsv(Au, Cu))
 
 # From Week 7 observers and KF tutorial solutions, code cel 16.
 # This checks if x and y readings reveal heading while the robot moves.
